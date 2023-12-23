@@ -1,7 +1,7 @@
 use api::storage::storage::init;
 use clap::Parser;
 mod api;
-#[derive(Parser)] // requires `derive` feature
+#[derive(Parser)] 
 #[command(name = "yeep")]
 #[command(bin_name = "yeep")]
 enum Cli {
