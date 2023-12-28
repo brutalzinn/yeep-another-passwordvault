@@ -11,8 +11,11 @@ pub mod crypt{
 
     pub fn decrypt(encrypted: &str, secret: &str) -> String{
         let mcrypt = new_magic_crypt!(secret, 256); //Creates an instance of the magic crypt library/crate.
-        let decrypted_string = mcrypt.decrypt_base64_to_string(&encrypted).unwrap(); //Decrypts the string so we can read it.
-        println!("Decrypted String: {}", decrypted_string); //Print the human-readable, decrypted string.
-        return decrypted_string;
+        let decrypted_string = mcrypt.decrypt_base64_to_string(&encrypted);
+        let result = match decrypted_string {
+            Ok(data)=> data,
+            Err(err)=> panic!("BABAYAHA IS HERE.. OR Maybe wrong secret key?!") 
+        };
+        return result;
     }
 }
