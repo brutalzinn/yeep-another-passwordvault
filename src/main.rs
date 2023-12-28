@@ -1,4 +1,4 @@
-use crate::api::storage::storage::{create_table, insert_keypair, read_keypairs};
+use crate::api::{storage::storage::{create_table, insert_keypair, read_keypairs}, crypt::{self, crypt::crypt}};
 use clap::Parser;
 use rusqlite::Connection;
 mod api;
@@ -45,7 +45,8 @@ fn main() {
     match args {
         Cli::Add(args) => {
             println!("Add {:?}, {:?}", args.key, args.value);
-            insert_keypair(&conn, &args.key , &args.value).unwrap();   //.unwrap();
+            let cryptData = crypt(&args.value, "example passowrd");
+            insert_keypair(&conn, &args.key , &cryptData).unwrap();   //.unwrap();
         }
         Cli::Del(args) => {
             println!("Del {:?}", args.id);
@@ -56,7 +57,7 @@ fn main() {
         Cli::List(_) => {
             let keypairs = read_keypairs(&conn).unwrap();
             for item in keypairs {
-                println!("{} {}", item.id, item.key);
+                println!("{} {}", item.id, item.key)
             }
         }
     }
