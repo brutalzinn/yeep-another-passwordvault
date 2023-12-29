@@ -1,5 +1,5 @@
 
-pub mod storage {
+ pub mod storage {
     extern crate rusqlite;
     use rusqlite::{Connection, Result};
     #[derive(Debug)]
@@ -72,9 +72,9 @@ pub mod storage {
     //     )
     // }
     
-    // pub fn delete_keypair(conn: &Connection, id: i32) -> Result<usize> {
-    //     conn.execute("DELETE FROM keypairs WHERE id = ?1", &[&id])
-    // }
+    pub fn delete_keypair(conn: &Connection, id: i32) -> Result<usize> {
+        conn.execute("DELETE FROM keypairs WHERE id = ?1", &[&id])
+    }
     
 }
 

@@ -1,74 +1,28 @@
-use crate::api::{storage::storage::{create_table, insert_keypair, read_keypairs}, crypt::{crypt::{crypt, decrypt}}};
-use api::{config::{self, config::read}, storage::storage::read_keypair};
-use clap::Parser;
-use rusqlite::Connection;
 mod api;
-#[derive(Parser)] 
-#[command(name = "yeep")]
-#[command(bin_name = "yeep")]
-enum Cli {
-    List(ListArgs),
-    Add(AddArgs),
-    Read(ReadArgs),
-    Del(DelArgs),
-    Save(SaveArgs)
-}
+use api::{config::config::read_file, cli::cli::Cli, storage::storage::read_keypairs};
+use rusqlite::Connection;
+use clap::Parser;
+/// this is the moment that i understand the practice of use mod.rs or a crate to inform some especification to compiler. But dude, this is not a human readable at all..
 
-#[derive(clap::Args)]
-#[command(author, version, about, long_about = "Read a keypair")]
-struct ReadArgs {
-    #[arg(long)]
-    id: i32,
-
-    #[arg(long)]
-    secret: Option<String>
-}
-
-#[derive(clap::Args)]
-#[command(author, version, about, long_about = "Save all")]
-struct SaveArgs {
-}
-
-#[derive(clap::Args)]
-#[command(author, version, about, long_about = "List all")]
-struct ListArgs {
-}
-
-#[derive(clap::Args)]
-#[command(author, version, about, long_about = "Add new secret keypair")]
-struct AddArgs {
-    #[arg(long)]
-    key: String,
-
-    #[arg(long)]
-    value: String,
-
-    #[arg(long)]
-    secret: Option<String>
-}
-#[derive(clap::Args)]
-#[command(author, version, about, long_about = "Remove a secret")]
-struct DelArgs {
-    #[arg(long)]
-    id: Option<i32>,
-}
+use crate::api::{storage::storage::{insert_keypair, read_keypair, delete_keypair}, crypt::crypt::{crypt, decrypt}};
 
 fn main() {
-    let data = read("config.toml");
+    let filename= "config.toml";
+    let data = read_file(filename);
+
     let conn = Connection::open("test.db").unwrap();
-    create_table(&conn).unwrap();
+    api::storage::storage::create_table(&conn).unwrap();
     let args = Cli::parse();
     match args {
         Cli::Add(args) => {
             println!("Add {:?}, {:?}", args.key, args.value);
-
             let secret = match args.secret{
                 Some(option)=> option,
                 None=> data.config.secret
             } ;
             println!("Secret key: {}", secret);
-            let cryptData = crypt(&args.value, secret.as_str());
-            insert_keypair(&conn, &args.key , &cryptData).unwrap();   //.unwrap();
+            let crypt_data = crypt(&args.value, secret.as_str());
+            insert_keypair(&conn, &args.key , &crypt_data).unwrap();   //.unwrap();
         }
         Cli::Read(args)=> {
             let keypairs = read_keypair(&conn,args.id).unwrap();
@@ -80,16 +34,23 @@ fn main() {
                 Some(option)=> option,
                 None=> data.config.secret
             } ;
-            let readData = decrypt(&result.value, &secret);
-
-            println!("{} {}", result.id, readData);
+            let decrypt_data = decrypt(&result.value, &secret);
+            println!("{} {}", result.id, decrypt_data);
 
         },
         Cli::Del(args) => {
-            println!("Del {:?}", args.id);
+            let result = delete_keypair(&conn, args.id);
+            match result {
+            Ok(_)=>    println!("Deleted {:?} sucefull", args.id),
+                Err(_)=> panic!("Failed to delete the key {}", args.id) 
+            };
         }
-        Cli::Save(_) => {
-            println!("Saving..");
+        Cli::Babayaga(args) => {
+            let target = match args.agent{
+                Some(option)=> option,
+                None=> "YOU. I think you cant do nothing..".to_string()
+            } ;
+            println!("BABAYAGA IS COMING TO kill {}", target);
         }
         Cli::List(_) => {
             let keypairs = read_keypairs(&conn).unwrap();
