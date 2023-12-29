@@ -10,7 +10,7 @@
 2. Install rust
 3. Open you command prompt and execute the next commands `$ cargo update` and `$ cargo build` 
 4. go to folder target/debug
-5. Add you first keypair data `$ run yeep add --key myawesomeky --value myawesomesecrethat`
+5. Add you first keypair data `$ run yeep add --key myawesomeky --value myhighvaluesensitivedata`
 6. Retrive you list of keypairs `$ run yeep list`
 7. Retrive you first crypted data  `$ run yeep read --id 0`
 8. Enjoy. You can use more commands. `$ run yeep help` to get more.
