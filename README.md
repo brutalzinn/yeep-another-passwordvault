@@ -1,4 +1,4 @@
-# My first cli with Rust
+# My first CLI ( command line interface ) with Rust
 
  A small repo to give me the feelings of Rust development ( maybe i use it to Arduino development ??? YES ). 
  
