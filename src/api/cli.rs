@@ -10,7 +10,15 @@ pub mod cli {
         Add(AddArgs),
         Read(ReadArgs),
         Del(DelArgs),
-        Babayaga(BabayaArgs)
+        Babayaga(BabayaArgs),
+        Version(VersionArgs)
+    }
+
+        
+    #[derive(clap::Args)]
+    #[command(author, version, about, long_about = "get current version")]
+    pub struct VersionArgs {
+
     }
     
     #[derive(clap::Args)]

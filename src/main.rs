@@ -9,7 +9,7 @@ use crate::api::{storage::storage::{insert_keypair, read_keypair, delete_keypair
 fn main() {
     let filename= "config.toml";
     let data = read_file(filename);
-
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
     let conn = Connection::open("test.db").unwrap();
     api::storage::storage::create_table(&conn).unwrap();
     let args = Cli::parse();
@@ -57,6 +57,9 @@ fn main() {
             for item in keypairs {
                 println!("{} {}", item.id, item.key)
             }
+        }
+        Cli::Version(_) => {
+            println!("Current version is: {}", VERSION)
         }
     }
 }
