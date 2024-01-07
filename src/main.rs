@@ -72,9 +72,9 @@ fn main() {
             
             #[cfg(target_os = "linux")]
             {
-                println!("For Linux or macOS (Bash):")?;
+                println!("For Linux or macOS (Bash):");
                 println!("   1. Open your Bash profile file with a text editor (e.g., vim or nano):");
-                println!("      - Example: vim ~/.bashrc")?;
+                println!("      - Example: vim ~/.bashrc");
                 println!("   2. Add the following line at the end of the file:");
                 println!("      - Example: export PATH=$PATH:{}",current_dir);
                 println!("   3. Save and exit the text editor.");
