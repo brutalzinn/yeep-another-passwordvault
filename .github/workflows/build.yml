@@ -59,7 +59,7 @@ jobs:
         shell: bash
         run: |
           # Replace with the name of your binary
-          binary_name="$PROJECT_NAME"
+          binary_name="yeep"
 
           dirname="$binary_name-${{ env.VERSION }}-${{ matrix.target }}"
           mkdir "$dirname"
