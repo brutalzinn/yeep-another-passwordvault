@@ -15,7 +15,7 @@
 7. Retrive you first crypted data  `$ run yeep read --id 0`
 8. Enjoy. You can use more commands. `$ run yeep help` to get more.
 
-# OPTION 2 - Use a ready to use releases for your system
+# OPTION 2 - Use a ready to use releases
 
 1. check this repo release page [releases](https://github.com/brutalzinn/yeep-another-passwordvault/releases)
 2. Choose you system version 
@@ -30,12 +30,17 @@
 
  # Usage
 
-    Usage: yeep <COMMAND>
+      Usage: yeep <COMMAND>
 
-    Commands:
-    list      List all
-    add       Add new secret keypair
-    read
-    del       Delete a keypair
-    babayaga  babayaga. maybe.. a JOHN WICK easter egg?!
-    help      Print this message or the help of the given subcommand(s)
+      Commands:
+      list      List all
+      add       Add new secret keypair
+      read      Read a keypair
+      del       Delete a keypair
+      babayaga  babayaga. maybe.. a JOHN WICK easter egg?!
+      setup     Show setup instructions to configure yeep as global CLI
+      version   get current version
+      help      Print this message or the help of the given subcommand(s)
+
+      Options:
+      -h, --help  Print help
