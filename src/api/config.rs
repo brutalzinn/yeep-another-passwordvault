@@ -15,7 +15,6 @@ pub mod config {
         pub secret: String
     }
 
-
     pub fn read_file(filename: &str) -> Data {
         let file_exists = check_exists(filename);
         if !file_exists{
@@ -37,7 +36,6 @@ pub mod config {
         };
         return data
     }
-
     fn check_exists(filename: &str) -> bool{
         let result = match fs::metadata(filename) {
             Ok(_) => true,

@@ -1,4 +1,6 @@
 mod api;
+use std::{string, env};
+
 use api::{config::config::read_file, cli::cli::Cli, storage::storage::read_keypairs};
 use rusqlite::Connection;
 use clap::Parser;
@@ -60,6 +62,45 @@ fn main() {
         }
         Cli::Version(_) => {
             println!("Current version is: {}", VERSION)
+        }
+        Cli::Setup(_) => {
+
+            let current_dir: String = match  env::current_dir(){
+                Ok(result)=> result.to_string_lossy().to_string(),
+                Err(_) => "cant set current dir".to_string()
+            };
+            
+            #[cfg(target_os = "linux")]
+            {
+                println!("For Linux or macOS (Bash):")?;
+                println!("   1. Open your Bash profile file with a text editor (e.g., vim or nano):");
+                println!("      - Example: vim ~/.bashrc")?;
+                println!("   2. Add the following line at the end of the file:");
+                println!("      - Example: export PATH=$PATH:{}",current_dir);
+                println!("   3. Save and exit the text editor.");
+            }
+        
+            #[cfg(target_os = "macos")]
+            {
+                println!("For macOS (Bash):");
+                println!("   1. Open your Bash profile file with a text editor (e.g., vim or nano):");
+                println!("      - Example: vim ~/.bash_profile");
+                println!("   2. Add the following line at the end of the file:");
+                println!("      - Example: export PATH=$PATH:{}",current_dir);
+                println!("   3. Save and exit the text editor.");
+            }
+        
+            #[cfg(target_os = "windows")]
+            {
+                println!("For Windows:");
+                println!("   1. Open the Start menu and search for 'Environment Variables'.");
+                println!("   2. Click 'Edit the system environment variables'.");
+                println!("   3. Click the 'Environment Variables...' button.");
+                println!("   4. In the 'System variables' section, select the 'Path' variable and click 'Edit'.");
+                println!("   5. Click 'New' and add the path to your 'bin' directory (e.g., {}).", current_dir);
+                println!("   6. Click 'OK' to close each dialog.");
+            }
+        
         }
     }
 }

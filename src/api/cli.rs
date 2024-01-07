@@ -11,10 +11,16 @@ pub mod cli {
         Read(ReadArgs),
         Del(DelArgs),
         Babayaga(BabayaArgs),
+        Setup(SetupArgs),
         Version(VersionArgs)
     }
 
-        
+    #[derive(clap::Args)]
+    #[command(author, version, about, long_about = "Show setup instructions to configure yeep as global CLI")]
+    pub struct SetupArgs {
+
+    }
+     
     #[derive(clap::Args)]
     #[command(author, version, about, long_about = "get current version")]
     pub struct VersionArgs {
