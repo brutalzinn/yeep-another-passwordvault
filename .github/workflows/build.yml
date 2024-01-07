@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PROJECT_NAME: yeep
+
 jobs:
   build-and-upload:
     name: Build and upload
@@ -24,6 +27,10 @@ jobs:
           - build: macos
             os: macos-latest
             target: x86_64-apple-darwin
+
+          - build: windows-gnu
+            os: windows-latest
+            target: x86_64-pc-windows-gnu
 
     steps:
       - name: Checkout
@@ -52,7 +59,7 @@ jobs:
         shell: bash
         run: |
           # Replace with the name of your binary
-          binary_name="<BINARY_NAME>"
+          binary_name="$PROJECT_NAME"
 
           dirname="$binary_name-${{ env.VERSION }}-${{ matrix.target }}"
           mkdir "$dirname"
