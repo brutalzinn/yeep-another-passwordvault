@@ -15,7 +15,7 @@
 7. Retrive you first crypted data  `$ run yeep read --id 0`
 8. Enjoy. You can use more commands. `$ run yeep help` to get more.
 
-# OPTION 2 - Use a ready to use releases
+# OPTION 2 - Use a ready to use release
 
 1. check this repo release page [releases](https://github.com/brutalzinn/yeep-another-passwordvault/releases)
 2. Choose you system version 
